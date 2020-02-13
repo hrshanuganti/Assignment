@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.expertisetestoutline.request.CelsiusRequest;
 import com.example.expertisetestoutline.request.KelvinRequest;
+import com.example.expertisetestoutline.request.KilometersRequest;
 import com.example.expertisetestoutline.request.MilesRequest;
 
 @RestController
@@ -34,8 +35,7 @@ public class ExpertiseController {
 		return celsius;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/conversions/ctok", method = RequestMethod.POST)
 	public float celsiusToKelvin(@RequestBody CelsiusRequest request) throws NumberFormatException, IOException {
 		LOGGER.info("Conversionsctok service has stared......................................");
@@ -50,8 +50,7 @@ public class ExpertiseController {
 		LOGGER.info("Conversionsctok service has ended......................................");
 		return kelvin;
 	}
-	
-	
+
 	@RequestMapping(value = "/conversions/mtok", method = RequestMethod.POST)
 	public float milesToKilometers(@RequestBody MilesRequest request) throws NumberFormatException, IOException {
 		LOGGER.info("Conversionsmtok service has stared......................................");
@@ -67,10 +66,18 @@ public class ExpertiseController {
 		return km;
 	}
 
-	
-	
-	
-	
-	
+	@RequestMapping(value = "/conversions/ktom", method = RequestMethod.POST)
+	public double kilometersToMiles(@RequestBody KilometersRequest request) throws NumberFormatException, IOException {
+		LOGGER.info("Conversionsktom service has started......................................");
+		String kilometers = request.getKilometers();
+		// String value to Double Conversion
+		double kilometersDoubleValue = Double.parseDouble(kilometers);
+		System.out.println("Enter a number of Kilometers: " + kilometersDoubleValue);
+		// Conversion Logic
+		double miles = kilometersDoubleValue / 1.6;
+		System.out.println(miles + " Miles");
+		LOGGER.info("Conversionsktom service has ended......................................");
+		return miles;
+	}
 
 }
