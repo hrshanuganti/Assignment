@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.expertisetestoutline.request.CelsiusRequest;
 import com.example.expertisetestoutline.request.KelvinRequest;
+import com.example.expertisetestoutline.request.MilesRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -32,5 +34,43 @@ public class ExpertiseController {
 		return celsius;
 
 	}
+	
+	
+	@RequestMapping(value = "/conversions/ctok", method = RequestMethod.POST)
+	public float celsiusToKelvin(@RequestBody CelsiusRequest request) throws NumberFormatException, IOException {
+		LOGGER.info("Conversionsctok service has stared......................................");
+		// String to float conversion
+		String celsius = request.getCelsius();
+		float celsiusFloatValue = Float.parseFloat(celsius);
+		// Get the console input for the temperature in Celsius
+		System.out.println("Temperature in Degree Celsius:" + celsiusFloatValue);
+		// Degrees Celsius to Kelvin Conversion
+		float kelvin = celsiusFloatValue + 273.15F;
+		System.out.println("Kelvin: " + kelvin);
+		LOGGER.info("Conversionsctok service has ended......................................");
+		return kelvin;
+	}
+	
+	
+	@RequestMapping(value = "/conversions/mtok", method = RequestMethod.POST)
+	public float milesToKilometers(@RequestBody MilesRequest request) throws NumberFormatException, IOException {
+		LOGGER.info("Conversionsmtok service has stared......................................");
+		String miles = request.getMiles();
+		// String value to Float Conversion
+		float milesFloatValue = Float.parseFloat(miles);
+		System.out.println("Enter a number of miles: " + milesFloatValue);
+		// Miles to Kilometers conversion Logic
+		// 1 mile = 1.609 344 kilometer;
+		float km = milesFloatValue * 1.609344f;
+		System.out.println(milesFloatValue + " miles is " + km + " kilometers.");
+		LOGGER.info("Conversionsmtok service has ended......................................");
+		return km;
+	}
+
+	
+	
+	
+	
+	
 
 }
